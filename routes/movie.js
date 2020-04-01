@@ -20,14 +20,14 @@ router.get('/:id', async (req, res) => {
       });
       return;
     } else if (error === 'No quotes for movie') {
-      res.status(204).json({
-        code: 204,
+      res.status(200).json({
+        code: 200,
         quotes: [],
+        length: 0,
         message: `Movie with id ${id} does not have any quotes on it's IMDB Page`
       });
       return;
     }
-    return;
   }
 
   res.status(200).json({

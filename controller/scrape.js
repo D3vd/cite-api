@@ -53,12 +53,7 @@ async function scrape(id) {
         quote_array.push(inner);
       });
 
-      let quote_object = {
-        cnt: i + 1,
-        quote: quote_array
-      };
-
-      raw.push(quote_object);
+      raw.push(quote_array);
     }
 
     return {
