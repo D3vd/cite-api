@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "API that returns quotes from a movie",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
   "keywords": [
     "Movie",
     "Quotes",
@@ -12,5 +15,11 @@
     "IMDB"
   ],
   "author": "R3l3ntl3ss",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
 }
