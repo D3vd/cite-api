@@ -30,7 +30,9 @@ async function scrape(id) {
         inner = element.innerHTML
           .replace(/\r?\n|\r/g, '')
           .replace(/<a.*?>/g, '')
-          .replace('</a>', '');
+          .replace(/<span.*?>/g, '')
+          .replace(/<\/a>/g, '')
+          .replace(/<\/span>/g, '');
 
         quote_array.push(inner);
       });
