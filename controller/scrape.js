@@ -27,7 +27,11 @@ async function scrape(id) {
       let quote_array = [];
 
       quote_children.forEach(element => {
-        inner = element.innerHTML.replace(/\r?\n|\r/g, '');
+        inner = element.innerHTML
+          .replace(/\r?\n|\r/g, '')
+          .replace(/<a.*?>/g, '')
+          .replace('</a>', '');
+
         quote_array.push(inner);
       });
 
@@ -42,9 +46,9 @@ async function scrape(id) {
     return raw;
   });
 
-  console.log(raw_quotes);
-
   await browser.close();
+
+  return raw_quotes;
 }
 
 module.exports = scrape;

@@ -1,7 +1,9 @@
 const scrapeQuotes = require('./scrape');
 
 async function getQuotes(id) {
-  await scrapeQuotes(id);
+  let quotes = await scrapeQuotes(id);
+
+  return quotes;
 }
 
 module.exports = getQuotes;
