@@ -1,5 +1,5 @@
 {
-  "name": "movie-quotes-api",
+  "name": "cite-api",
   "version": "1.0.0",
   "description": "API that returns quotes from a movie",
   "main": "index.js",
@@ -12,7 +12,8 @@
     "Quotes",
     "API",
     "Scraper",
-    "IMDB"
+    "IMDB",
+    "Cite"
   ],
   "author": "R3l3ntl3ss",
   "license": "ISC",

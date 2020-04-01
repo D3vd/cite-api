@@ -30,6 +30,7 @@ router.get('/:id', async (req, res) => {
     }
   }
 
+  // Successful Response
   res.status(200).json({
     code: 200,
     quotes,
