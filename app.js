@@ -1,9 +1,11 @@
 const express = require('express');
 const logger = require('morgan');
+const cors = require('cors');
 
 const app = express();
 
 app.use(logger('tiny'));
+app.use(cors());
 
 // Routes
 app.use('/', require('./routes/index'));
