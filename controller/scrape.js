@@ -4,17 +4,33 @@ async function scrape(id) {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
-  //TODO: Add wrong ID Error handling and no quotes
-
   // Visit the quotes page of the movie
   await page.goto(`https://www.imdb.com/title/${id}/quotes/`, {
     waitUntil: 'networkidle2'
   });
 
-  let raw_quotes = await page.evaluate(() => {
-    let quotes_raw_list = document
-      .getElementById('quotes_content')
-      .querySelector('.list').children;
+  let { quotes, error } = await page.evaluate(() => {
+    let quotes_content = document.getElementById('quotes_content');
+
+    // Check if the IMDB ID is invalid
+    // 'quotes_content' will not be present if ID is invalid
+    if (quotes_content === null) {
+      return {
+        raw_quotes: [],
+        error: 'Invalid IMDB ID'
+      };
+    }
+
+    // Check if the movie's page has no quotes
+    // If the movie's page has no quotes then a div with id 'no_content' will be present
+    if (quotes_content.querySelector('#no_content') !== null) {
+      return {
+        raw_quotes: [],
+        error: 'No quotes for movie'
+      };
+    }
+
+    let quotes_raw_list = quotes_content.querySelector('.list').children;
 
     let length = quotes_raw_list.length;
 
@@ -45,12 +61,18 @@ async function scrape(id) {
       raw.push(quote_object);
     }
 
-    return raw;
+    return {
+      quotes: raw,
+      error: null
+    };
   });
 
   await browser.close();
 
-  return raw_quotes;
+  return {
+    quotes,
+    error
+  };
 }
 
 module.exports = scrape;
