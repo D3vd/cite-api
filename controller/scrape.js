@@ -64,10 +64,44 @@ async function scrape(id) {
     };
   });
 
-  await browser.close();
+  if (error === 'Invalid IMDB ID') {
+    return {
+      quotes,
+      error
+    };
+  }
+
+  let { poster, name } = await page.evaluate(() => {
+    let subpage_block = document.querySelector('.subpage_title_block');
+
+    let poster_small_link = subpage_block.querySelector('.poster').src;
+    console.log(poster_small_link);
+
+    let name_cnt = subpage_block
+      .querySelector('.parent')
+      .getElementsByTagName('A')[0]
+      .innerHTML.replace(/\r?\n|\r/g, '');
+    let year_cnt = subpage_block
+      .querySelector('.parent')
+      .querySelector('.nobr')
+      .innerHTML.replace(/ /g, '')
+      .replace(/\r?\n|\r/g, '');
+
+    let name = name_cnt + ' ' + year_cnt;
+    let poster = poster_small_link.split('@._V1_')[0] + '@._V1_.jpg';
+
+    return {
+      poster,
+      name
+    };
+  });
+
+  // await browser.close();
 
   return {
     quotes,
+    name,
+    poster,
     error
   };
 }
