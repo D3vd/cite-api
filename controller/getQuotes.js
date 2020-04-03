@@ -19,6 +19,15 @@ async function getQuotes(id) {
     };
   }
 
+  if (DBQuotes.count === 0) {
+    return {
+      quotes: DBQuotes.quotes,
+      name: DBQuotes.name,
+      poster: DBQuotes.name,
+      error: 'No quotes for movie'
+    };
+  }
+
   return {
     quotes: DBQuotes.quotes,
     name: DBQuotes.name,

@@ -9,13 +9,25 @@ async function getFromDB(id) {
 }
 
 async function writeToDB(id, name, quotes, poster) {
-  let quotesJSON = {
-    id,
-    name,
-    quotes,
-    poster,
-    count: quotes.length
-  };
+  let quotesJSON = {};
+
+  if (quotes === undefined) {
+    quotesJSON = {
+      id,
+      name,
+      quotes,
+      poster,
+      count: 0
+    };
+  } else {
+    quotesJSON = {
+      id,
+      name,
+      quotes,
+      poster,
+      count: quotes.length
+    };
+  }
 
   var quotesDoc = new Quotes(quotesJSON);
   await quotesDoc.save();
