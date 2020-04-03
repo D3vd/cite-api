@@ -1,11 +1,15 @@
 const mongoose = require('mongoose');
 
-let quotesSchema = new mongoose.Schema({
+let quotesJSON = {
   id: String,
   name: String,
   poster: String,
   quotes: [[String]],
-  length: Int
+  count: Number
+};
+
+let QuotesSchema = new mongoose.Schema(quotesJSON, {
+  timestamps: true
 });
 
-module.exports = mongoose.model('Quotes', quotesSchema);
+module.exports = mongoose.model('Quotes', QuotesSchema);
