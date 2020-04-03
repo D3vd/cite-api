@@ -13,6 +13,7 @@ app.use(cors());
 // Routes
 app.use('/', require('./routes/index'));
 app.use('/movie', require('./routes/movie'));
+app.use('/wakeup', require('./routes/wakeup'));
 
 // Initialize MongoDB
 db = new Database();
