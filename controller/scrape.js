@@ -96,7 +96,7 @@ async function scrape(id) {
     };
   });
 
-  // await browser.close();
+  await browser.close();
 
   return {
     quotes,
