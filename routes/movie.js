@@ -23,10 +23,10 @@ router.get('/:id', async (req, res) => {
       res.status(200).json({
         code: 200,
         count: 0,
+        quotes: [],
         message: `Movie with id ${id} does not have any quotes on it's IMDB Page`,
         name,
-        poster,
-        quotes
+        poster
       });
       return;
     }
