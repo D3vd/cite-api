@@ -1,4 +1,4 @@
-const scrapeQuotes = require('./scrape');
+const scrapeQuotes = require('./cheerio');
 const DB = require('./dbOps');
 
 async function getQuotes(id) {
