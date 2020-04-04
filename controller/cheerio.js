@@ -3,6 +3,7 @@ const cheerio = require('cheerio');
 
 async function scrape(id) {
   let html = null;
+  let error = null;
 
   await axios
     .get(`https://www.imdb.com/title/${id}/quotes`)
@@ -10,20 +11,23 @@ async function scrape(id) {
       html = res.data;
     })
     .catch(er => {
-      return {
-        quotes: [],
-        error: 'Invalid IMDB ID',
-        name: '',
-        poster: ''
-      };
+      error = er;
     });
+
+  if (error !== null) {
+    return {
+      quotes: [],
+      error: 'Invalid IMDB ID',
+      name: '',
+      poster: ''
+    };
+  }
 
   const $ = cheerio.load(html);
 
   let content = $('#quotes_content');
 
   if (content.html() === null) {
-    console.log('Yeah');
     return {
       quotes: [],
       error: 'Invalid IMDB ID',
@@ -83,8 +87,6 @@ async function scrape(id) {
         });
       quotes.push(quote);
     });
-
-  console.log(quotes);
 
   return {
     quotes,
